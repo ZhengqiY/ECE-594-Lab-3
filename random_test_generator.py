@@ -8,6 +8,19 @@ coverpoint = ['add', 'sub', 'mul', 'div', 'xor']
 def rt_generator():
 
     choice = random.randint(0,4)
-    return 'lw' + registers[5] + ',' + '0x0C($zero)' + '\n'
-    return 'lw' + registers[6] + ',' + '0x10($zero)' + '\n'
-    return coverpoint[choise] + register[7] + ',' + register[5] + ',' + register[6]
+    return 'lw ' + registers[5] + ',' + '0x0C($zero)' + '\n',\
+    'lw' + registers[6] + ',' + '0x10($zero)' + '\n',\
+    coverpoint[choice] + registers[7] + ',' + registers[5] + ',' + registers[6]
+
+
+if __name__ == '__main__':
+    text = 'main:\n'
+    val = rt_generator();
+    text += val[1] # generate one ori assembly code
+    #for i in range(100): # generate 100 ori assembly code
+        #text += generate_ori()
+
+    # output to file
+    f = open('generator_example.asm', 'w')
+    f.write(text)
+    f.close()    
